@@ -23,7 +23,16 @@ import {
     Triangle,
     Turtle,
   } from "lucide-react"
-  
+  import {
+    Sheet,
+    SheetClose,
+    SheetContent,
+    SheetDescription,
+    SheetFooter,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+  } from "@/components/ui/sheet"
   import { Badge } from "@/components/ui/badge"
   import { Button } from "@/components/ui/button"
   import {
@@ -136,31 +145,13 @@ import {
     <aside className="inset-y fixed left-0 z-20 flex h-full flex-col border-r">
       <div className="border-b p-2">
         <Button variant="outline" size="icon" aria-label="Home">
-          <Triangle className="size-5 fill-foreground" />
+        <img src="/next.svg" className="w-10 h-10" alt="tailus logo" />
         </Button>
       </div>
       <nav className="grid gap-1 p-2">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-lg bg-muted"
-                aria-label="Playground"
-              >
-                <SquareTerminal className="size-5" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="right" sideOffset={5}>
-              Playground
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
+        <Sheet>
+      <SheetTrigger asChild>
+      <Button
                 variant="ghost"
                 size="icon"
                 className="rounded-lg"
@@ -168,63 +159,39 @@ import {
               >
                 <Bot className="size-5" />
               </Button>
-            </TooltipTrigger>
-            <TooltipContent side="right" sideOffset={5}>
-              Models
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-lg"
-                aria-label="API"
-              >
-                <Code2 className="size-5" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="right" sideOffset={5}>
-              API
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-lg"
-                aria-label="Documentation"
-              >
-                <Book className="size-5" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="right" sideOffset={5}>
-              Documentation
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-lg"
-                aria-label="Settings"
-              >
-                <Settings2 className="size-5" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="right" sideOffset={5}>
-              Settings
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+      </SheetTrigger>
+      <SheetContent>
+        <SheetHeader>
+          <SheetTitle>Edit profile</SheetTitle>
+          <SheetDescription>
+            Make changes to your profile here. Click save when you're done.
+          </SheetDescription>
+        </SheetHeader>
+        <fieldset className="grid gap-6 rounded-lg border p-4 max-h-[100vh]">
+  <div className="grid gap-3">
+    <Label htmlFor="incident-description">Incident Description</Label>
+    <Textarea id="incident-description" placeholder="Enter incident description" />
+  </div>
+  <div className="grid gap-3">
+    <Label htmlFor="witness-info">Witness Information</Label>
+    <Textarea id="witness-info" placeholder="Enter witness information" />
+  </div>
+  <div className="grid gap-3">
+    <Label htmlFor="suspect-info">Suspect Information</Label>
+    <Textarea id="suspect-info" placeholder="Enter suspect information" />
+  </div>
+  <div className="grid gap-3">
+    <Label htmlFor="actions-taken">Actions Taken</Label>
+    <Textarea id="actions-taken" placeholder="Enter details of actions taken" />
+  </div>
+</fieldset>
+        <SheetFooter>
+          <SheetClose asChild>
+            <Button type="submit" className="mt-4">Save changes</Button>
+          </SheetClose>
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
       </nav>
       <nav className="mt-auto grid gap-1 p-2">
         <TooltipProvider>
@@ -265,7 +232,7 @@ import {
     </aside>
         <div className="flex flex-col">
           <header className="sticky top-0 z-10 flex h-[53px] items-center gap-1 border-b bg-background px-4">
-            <h1 className="text-xl font-semibold">Playground</h1>
+            <h1 className="text-xl font-semibold uppercase leading-10 text-red-600"> DISTRESS</h1>
             <Drawer>
               <DrawerTrigger asChild>
                 <Button variant="ghost" size="icon" className="md:hidden">
@@ -280,117 +247,49 @@ import {
                     Configure the settings for the model and messages.
                   </DrawerDescription>
                 </DrawerHeader>
-                <form className="grid w-full items-start gap-6 overflow-auto p-4 pt-0">
-                  <fieldset className="grid gap-6 rounded-lg border p-4">
-                    <legend className="-ml-1 px-1 text-sm font-medium">
-                      Settings
-                    </legend>
-                    <div className="grid gap-3">
-                      <Label htmlFor="model">Model</Label>
-                      <Select>
-                        <SelectTrigger
-                          id="model"
-                          className="items-start [&_[data-description]]:hidden"
-                        >
-                          <SelectValue placeholder="Select a model" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="genesis">
-                            <div className="flex items-start gap-3 text-muted-foreground">
-                              <Rabbit className="size-5" />
-                              <div className="grid gap-0.5">
-                                <p>
-                                  Neural{" "}
-                                  <span className="font-medium text-foreground">
-                                    Genesis
-                                  </span>
-                                </p>
-                                <p className="text-xs" data-description>
-                                  Our fastest model for general use cases.
-                                </p>
-                              </div>
-                            </div>
-                          </SelectItem>
-                          <SelectItem value="explorer">
-                            <div className="flex items-start gap-3 text-muted-foreground">
-                              <Bird className="size-5" />
-                              <div className="grid gap-0.5">
-                                <p>
-                                  Neural{" "}
-                                  <span className="font-medium text-foreground">
-                                    Explorer
-                                  </span>
-                                </p>
-                                <p className="text-xs" data-description>
-                                  Performance and speed for efficiency.
-                                </p>
-                              </div>
-                            </div>
-                          </SelectItem>
-                          <SelectItem value="quantum">
-                            <div className="flex items-start gap-3 text-muted-foreground">
-                              <Turtle className="size-5" />
-                              <div className="grid gap-0.5">
-                                <p>
-                                  Neural{" "}
-                                  <span className="font-medium text-foreground">
-                                    Quantum
-                                  </span>
-                                </p>
-                                <p className="text-xs" data-description>
-                                  The most powerful model for complex
-                                  computations.
-                                </p>
-                              </div>
-                            </div>
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="grid gap-3">
-                      <Label htmlFor="temperature">Temperature</Label>
-                      <Input id="temperature" type="number" placeholder="0.4" />
-                    </div>
-                    <div className="grid gap-3">
-                      <Label htmlFor="top-p">Top P</Label>
-                      <Input id="top-p" type="number" placeholder="0.7" />
-                    </div>
-                    <div className="grid gap-3">
-                      <Label htmlFor="top-k">Top K</Label>
-                      <Input id="top-k" type="number" placeholder="0.0" />
-                    </div>
-                  </fieldset>
-                  <fieldset className="grid gap-6 rounded-lg border p-4">
-                    <legend className="-ml-1 px-1 text-sm font-medium">
-                      Messages
-                    </legend>
-                    <div className="grid gap-3">
-                      <Label htmlFor="role">Role</Label>
-                      <Select defaultValue="system">
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a role" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="system">System</SelectItem>
-                          <SelectItem value="user">User</SelectItem>
-                          <SelectItem value="assistant">Assistant</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="grid gap-3">
-                      <Label htmlFor="content">Content</Label>
-                      <Textarea id="content" placeholder="You are a..." />
-                    </div>
-                  </fieldset>
-                </form>
+                <fieldset className="grid gap-6 rounded-lg border p-4">
+            <legend className="-ml-1 px-1 text-sm font-medium">
+              Incident Details
+            </legend>
+            <div className="grid gap-3">
+              <Label htmlFor="incident-type">Incident Type</Label>
+              <Select>
+                <SelectTrigger id="incident-type" className="items-start [&_[data-description]]:hidden">
+                  <SelectValue placeholder="Select an incident type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="theft">Theft</SelectItem>
+                  <SelectItem value="assault">Assault</SelectItem>
+                  <SelectItem value="vandalism">Vandalism</SelectItem>
+                  {/* Add more incident types as needed */}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid gap-3">
+              <Label htmlFor="location">Location</Label>
+              <Input id="location" type="text" placeholder="Enter location" />
+            </div>
+            {/* Add more fields for incident details as needed */}
+          </fieldset>
+          <fieldset className="grid gap-6 rounded-lg border p-4">
+  {/* Additional fields for police report */}
+  <div className="grid gap-3">
+    <Label htmlFor="complainant-name">Complainant Name</Label>
+    <Input id="complainant-name" type="text" placeholder="Enter complainant's name" />
+  </div>
+  <div className="grid gap-3">
+    <Label htmlFor="complainant-contact">Complainant Contact</Label>
+    <Input id="complainant-contact" type="text" placeholder="Enter complainant's contact information" />
+  </div>
+</fieldset>
               </DrawerContent>
             </Drawer>
             <Button
               variant="outline"
               size="sm"
-              className="ml-auto gap-1.5 text-sm"
+              className="ml-auto gap-1.5 text-sm bg-[#FF8080] text-white"
             >
-              <Share className="size-3.5" />
+              <Share className="size-3.5 text-white" />
               Share
             </Button>
           </header>
@@ -399,112 +298,43 @@ import {
               className="relative hidden flex-col items-start gap-8 md:flex" x-chunk="dashboard-03-chunk-0"
             >
               <form className="grid w-full items-start gap-6">
-                <fieldset className="grid gap-6 rounded-lg border p-4">
-                  <legend className="-ml-1 px-1 text-sm font-medium">
-                    Settings
-                  </legend>
-                  <div className="grid gap-3">
-                    <Label htmlFor="model">Model</Label>
-                    <Select>
-                      <SelectTrigger
-                        id="model"
-                        className="items-start [&_[data-description]]:hidden"
-                      >
-                        <SelectValue placeholder="Select a model" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="genesis">
-                          <div className="flex items-start gap-3 text-muted-foreground">
-                            <Rabbit className="size-5" />
-                            <div className="grid gap-0.5">
-                              <p>
-                                Neural{" "}
-                                <span className="font-medium text-foreground">
-                                  Genesis
-                                </span>
-                              </p>
-                              <p className="text-xs" data-description>
-                                Our fastest model for general use cases.
-                              </p>
-                            </div>
-                          </div>
-                        </SelectItem>
-                        <SelectItem value="explorer">
-                          <div className="flex items-start gap-3 text-muted-foreground">
-                            <Bird className="size-5" />
-                            <div className="grid gap-0.5">
-                              <p>
-                                Neural{" "}
-                                <span className="font-medium text-foreground">
-                                  Explorer
-                                </span>
-                              </p>
-                              <p className="text-xs" data-description>
-                                Performance and speed for efficiency.
-                              </p>
-                            </div>
-                          </div>
-                        </SelectItem>
-                        <SelectItem value="quantum">
-                          <div className="flex items-start gap-3 text-muted-foreground">
-                            <Turtle className="size-5" />
-                            <div className="grid gap-0.5">
-                              <p>
-                                Neural{" "}
-                                <span className="font-medium text-foreground">
-                                  Quantum
-                                </span>
-                              </p>
-                              <p className="text-xs" data-description>
-                                The most powerful model for complex computations.
-                              </p>
-                            </div>
-                          </div>
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="grid gap-3">
-                    <Label htmlFor="temperature">Temperature</Label>
-                    <Input id="temperature" type="number" placeholder="0.4" />
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="grid gap-3">
-                      <Label htmlFor="top-p">Top P</Label>
-                      <Input id="top-p" type="number" placeholder="0.7" />
-                    </div>
-                    <div className="grid gap-3">
-                      <Label htmlFor="top-k">Top K</Label>
-                      <Input id="top-k" type="number" placeholder="0.0" />
-                    </div>
-                  </div>
-                </fieldset>
-                <fieldset className="grid gap-6 rounded-lg border p-4">
-                  <legend className="-ml-1 px-1 text-sm font-medium">
-                    Messages
-                  </legend>
-                  <div className="grid gap-3">
-                    <Label htmlFor="role">Role</Label>
-                    <Select defaultValue="system">
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a role" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="system">System</SelectItem>
-                        <SelectItem value="user">User</SelectItem>
-                        <SelectItem value="assistant">Assistant</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="grid gap-3">
-                    <Label htmlFor="content">Content</Label>
-                    <Textarea
-                      id="content"
-                      placeholder="You are a..."
-                      className="min-h-[9.5rem]"
-                    />
-                  </div>
-                </fieldset>
+              <fieldset className="grid gap-6 rounded-lg border p-4">
+            <legend className="-ml-1 px-1 text-sm font-medium">
+              Incident Details
+            </legend>
+            <div className="grid gap-3">
+              <Label htmlFor="incident-type">Incident Type</Label>
+              <Select>
+                <SelectTrigger id="incident-type" className="items-start [&_[data-description]]:hidden">
+                  <SelectValue placeholder="Select an incident type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="theft">Theft</SelectItem>
+                  <SelectItem value="assault">Assault</SelectItem>
+                  <SelectItem value="vandalism">Vandalism</SelectItem>
+                  {/* Add more incident types as needed */}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid gap-3">
+              <Label htmlFor="location">Location</Label>
+              <Input id="location" type="text" placeholder="Enter location" />
+            </div>
+            {/* Add more fields for incident details as needed */}
+          </fieldset>
+          <fieldset className="grid gap-6 rounded-lg border p-4">
+  {/* Additional fields for police report */}
+  <div className="grid gap-3">
+    <Label htmlFor="complainant-name">Complainant Name</Label>
+    <Input id="complainant-name" type="text" placeholder="Enter complainant's name" />
+  </div>
+  <div className="grid gap-3">
+    <Label htmlFor="complainant-contact">Complainant Contact</Label>
+    <Input id="complainant-contact" type="text" placeholder="Enter complainant's contact information" />
+  </div>
+ 
+</fieldset>
+
               </form>
             </div>
             <div className=" flex h-full min-h-[100vh] flex-col rounded-xl bg-muted/50 p-2 lg:col-span-2">
